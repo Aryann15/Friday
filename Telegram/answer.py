@@ -10,6 +10,7 @@ from langchain.chat_models import ChatOpenAI
 from langchain.tools import BaseTool
 from pydantic import BaseModel, Field
 from bs4 import BeautifulSoup
+from typing import Type
 import requests
 
 load_dotenv()
@@ -94,6 +95,17 @@ class ScrapeWebsiteInput(BaseModel):
         description="The objective & task that users give to the agent")
     url: str = Field(description="The url of the website to be scraped")
 
+
+class ScrapeWebsiteTool(BaseTool):
+    name = "scrape_website"
+    description = "useful when you need to get data from a website url, passing both url and objective to the function; DO NOT make up any url, the url should only be from the search results"
+    args_schema: Type[BaseModel] = ScrapeWebsiteInput
+
+    def _run(self, objective: str, url: str):
+        return scrape_website(objective, url)
+
+    def _arun(self, url: str):
+        raise NotImplementedError("error here")
 
 
 # result = search("Hashnode")
