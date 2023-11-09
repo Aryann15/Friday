@@ -2,6 +2,10 @@ import os
 import json
 from dotenv import load_dotenv
 from langchain import PromptTemplate
+from langchain.agents import initialize_agent,Tool
+from langchain.agents import AgentType
+from langchain.chat_models import ChatOpenAI
+
 import requests
 
 load_dotenv()
@@ -25,6 +29,14 @@ def search(query):
 
     response = requests.request("POST", url, headers=headers, data=payload)
     return response.text
+
+
+def scrape_website():
+    headers= {
+        'Cache-Control' : 'no-cache',
+        'Content-Type': 'application.json'
+    }
+
 
 result = search("Hashnode")
 print(result)
