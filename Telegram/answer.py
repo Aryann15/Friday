@@ -4,6 +4,7 @@ from dotenv import load_dotenv
 from langchain import PromptTemplate
 from langchain.agents import initialize_agent,Tool
 from langchain.agents import AgentType
+from langchain.prompts import MessagesPlaceholder
 from langchain.chains.summarize import load_summarize_chain
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain.chat_models import ChatOpenAI
@@ -13,6 +14,7 @@ from bs4 import BeautifulSoup
 from typing import Type
 from langchain.schema import SystemMessage
 import requests
+from langchain.memory import ConversationSummaryBufferMemory
 
 load_dotenv()
 browserless_api_key = os.getenv("BROWSERLESS_API_KEY")
@@ -133,3 +135,12 @@ For each research task, You will:
 5 In the final output, You will provide all credible references and sources to back up my research findings.
 6) In the final output, You will provide all credible references and sources to back up my research findings.
 """)
+
+agent_kwargs = {
+    "extra_prompt_messages": [MessagesPlaceholder(variable_name="memory")],
+    "system_message": system_message,
+}
+
+llm = ChatOpenAI(temperature=0, model="gpt-3.5-turbo-16k-0613")
+memory = ConversationSummaryBufferMemory(
+    memory_key="memory", return_messages=True, llm=llm, max_token_limit=1000)
