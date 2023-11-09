@@ -4,6 +4,7 @@ from dotenv import load_dotenv
 from langchain import PromptTemplate
 from langchain.agents import initialize_agent,Tool
 from langchain.agents import AgentType
+from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain.chat_models import ChatOpenAI
 from bs4 import BeautifulSoup
 import requests
@@ -52,7 +53,7 @@ def scrape_website(objective:str , url:str):
         soup = BeautifulSoup(response.content, "html.parser")
         text = soup.get_text()
         print("CONTENTTTTTT:", text)
-        if len(text) > 10000:
+        if len(text) > 8000:
             output = summary(objective, text)
             return output
         else:
@@ -61,6 +62,14 @@ def scrape_website(objective:str , url:str):
         print(f"HTTP request failed with status code {response.status_code}")
 
 
-
+def summary(objective,content):
+    llm = ChatOpenAI(temperature=0.4, model= "gpt-3.5-turbo-16k-0613", openai_api_key=openai_api_key)
+    text_splitter = RecursiveCharacterTextSplitter(separators=["\n\n", "\n"], chunk_size = 8000 , chunk_overlap = 400)
+    docs = text_splitter.create_documents([content])
+    map_prompt ="""
+Write a summary of the following text for {objective}:
+"{text}"
+SUMMARY:
+"""
 result = search("Hashnode")
 print(result)
