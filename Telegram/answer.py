@@ -31,11 +31,16 @@ def search(query):
     return response.text
 
 
-def scrape_website():
+def scrape_website(objective:str , url:str):
     headers= {
         'Cache-Control' : 'no-cache',
         'Content-Type': 'application.json'
     }
+    data= {
+        "url":url
+    }
+
+    data_json = json.dumps(data)
 
 
 result = search("Hashnode")
