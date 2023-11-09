@@ -7,6 +7,8 @@ from langchain.agents import AgentType
 from langchain.chains.summarize import load_summarize_chain
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain.chat_models import ChatOpenAI
+from langchain.tools import BaseTool
+from pydantic import BaseModel, Field
 from bs4 import BeautifulSoup
 import requests
 
@@ -65,7 +67,7 @@ def scrape_website(objective:str , url:str):
 
 def summary(objective,content):
     llm = ChatOpenAI(temperature=0.4, model= "gpt-3.5-turbo-16k-0613", openai_api_key=openai_api_key)
-    text_splitter = RecursiveCharacterTextSplitter(separators=["\n\n", "\n"], chunk_size = 8000 , chunk_overlap = 400)
+    text_splitter = RecursiveCharacterTextSplitter(separators=["\n\n", "\n"], chunk_size = 4000 , chunk_overlap = 200)
     docs = text_splitter.create_documents([content])
     map_prompt ="""
 Write a summary of the following text for {objective}:
@@ -86,5 +88,13 @@ SUMMARY:
 
     return output
 
-result = search("Hashnode")
-print(result)
+class ScrapeWebsiteInput(BaseModel):
+    """Inputs for scrape_website"""
+    objective: str = Field(
+        description="The objective & task that users give to the agent")
+    url: str = Field(description="The url of the website to be scraped")
+
+
+
+# result = search("Hashnode")
+# print(result)
