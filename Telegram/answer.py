@@ -107,6 +107,11 @@ class ScrapeWebsiteTool(BaseTool):
     def _arun(self, url: str):
         raise NotImplementedError("error here")
 
-
-# result = search("Hashnode")
-# print(result)
+tools = [
+    Tool(
+        name="Search",
+        func=search,
+        description="useful for when you need to answer questions about current events, data. You should ask targeted questions"
+    ),
+    ScrapeWebsiteTool(),
+]
