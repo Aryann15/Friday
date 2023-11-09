@@ -52,6 +52,14 @@ def scrape_website(objective:str , url:str):
         soup = BeautifulSoup(response.content, "html.parser")
         text = soup.get_text()
         print("CONTENTTTTTT:", text)
+        if len(text) > 10000:
+            output = summary(objective, text)
+            return output
+        else:
+            return text
+    else:
+        print(f"HTTP request failed with status code {response.status_code}")
+
 
 
 result = search("Hashnode")
