@@ -5,7 +5,7 @@ from langchain import PromptTemplate
 from langchain.agents import initialize_agent,Tool
 from langchain.agents import AgentType
 from langchain.chat_models import ChatOpenAI
-
+from bs4 import BeautifulSoup
 import requests
 
 load_dotenv()
@@ -41,6 +41,17 @@ def scrape_website(objective:str , url:str):
     }
 
     data_json = json.dumps(data)
+
+
+    post_url = f"https://chrome.browserless.io/content?token={browserless_api_key}"
+
+    response = requests.post (post_url , headers= headers , data=data_json)
+
+
+    if response.status_code == 200:
+        soup = BeautifulSoup(response.content, "html.parser")
+        text = soup.get_text()
+        print("CONTENTTTTTT:", text)
 
 
 result = search("Hashnode")
