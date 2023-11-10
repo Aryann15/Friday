@@ -1,6 +1,8 @@
 from dotenv import load_dotenv
 import os 
 import telebot
+import time
+from answer import main
 
 
 load_dotenv()
@@ -11,6 +13,11 @@ bot = telebot.TeleBot (tg_bot_key)
 def start ( message): 
     bot.reply_to(message, "Hello Welcom aboard chief!")
     bot.send_message (message.chat.id, "What can i do for Today !")
+
+@bot.message_handler()
+def query (message): 
+    query = str(message.text)
+    return query
 
 print("done")
 bot.polling()
