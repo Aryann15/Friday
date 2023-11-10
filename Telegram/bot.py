@@ -17,6 +17,9 @@ def start ( message):
 @bot.message_handler()
 def query (message): 
     query = str(message.text)
+    bot.send_message(message.chat.id,"searching...")
+    result = main(query)
+    bot.send_message(message.chat.id, result)
     return query
 
 print("done")
