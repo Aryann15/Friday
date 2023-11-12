@@ -1,5 +1,5 @@
 import React from 'react';
-import './App.css';
+import './App.css'
 
 function App () {
 
@@ -9,11 +9,18 @@ function App () {
   return (
     <div className="App">
       <header className="App-header">
-        <h1>Friday</h1>
-        <button onClick={handleClick}>Click me!</button>
+        <h1 className="extension-title">Friday Extension</h1>
+        <button onClick={handleClick} className="cta-button">
+          Click me!
+        </button>
+        <div className="input-container">
+          <input type="text" placeholder="Your name" required={true} className="input-field" />
+          <input type="text" placeholder="Your thoughts" className="input-field" />
+          <button className="submit-button">Submit</button>
+        </div>
       </header>
     </div>
   );
-}
-
+  
+  }
 export default App;
