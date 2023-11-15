@@ -9,5 +9,6 @@ chrome.contextMenus.create({
 });
 
 chrome.contextMenus.onClicked.addListener((info, tab) => {
-  const selectedText = info.selectionText.trim();
+  const selectedText = info.selectionText;
+  chrome.runtime.sendMessage({ type: 'selected-text', text: selectedText });
 })
