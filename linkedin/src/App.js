@@ -32,14 +32,22 @@ const App = () => {
     formData.append("text",selectedText)
     formData.append("name",name)
     formData.append("topic",topic)
+    try {
+      const response = await fetch("http://localhost:5000/upload", {
+        method: "POST",
+        body: formData,
+      });
+      if (response.ok) {
+        const result = await response.text();
+        console.log(result);; // Show a success message
+      } else {
+        alert("Error: Something went wrong");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
   }
-
-
-
-
-
-
-
+  }
   return (
     <div className="App">
       <header className="App-header">
