@@ -11,6 +11,7 @@ const App = () => {
   const handleTopicChange = (event) => {
     setTopic(event.target.value);
   };
+  console.log(name,topic)
   useEffect(() => {
     // Adding an event listener to listen for messages from the popup
     const handleMessage = (event) => {
@@ -25,6 +26,20 @@ const App = () => {
       window.removeEventListener("message", handleMessage);
     };
   }, []);
+
+  async function handleMessages () {
+    const formData = new FormData();
+    formData.append("text",selectedText)
+    formData.append("name",name)
+    formData.append("topic",topic)
+  }
+
+
+
+
+
+
+
   return (
     <div className="App">
       <header className="App-header">
