@@ -3,30 +3,31 @@ from flask_cors import CORS
 from flask import Flask, request, jsonify
 import os
 from langchain.llms import OpenAI
+from langchain import PromptTemplate
 
 
 app = Flask(__name__)
-CORS (app)
+CORS(app)
 
 
 @app.route("/messages", methods=["POST"])
-def handle_messages ():
+def handle_messages():
     load_dotenv()
     openai_api_key = os.environ.get("OPENAI_API_KEY")
     texts = request.form["text"]
     name = request.form["name"]
     topic = request.form["topic"]
 
-    if name and texts :
+    if name and texts:
         # print(name)
         # print(topic)
         # print(texts[:300])
-        prompt = """
+        template = """
 
 """
-        openai = OpenAI(
-        model_name="gpt-3.5-turbo-1106",
-        openai_api_key=openai_api_key)
+        openai = OpenAI(model_name="gpt-3.5-turbo-1106", openai_api_key=openai_api_key)
+        prompt_template = PromptTemplate(input_variables=["text","name","topic"], template=template)
+
 
 if __name__ == "__main__":
-    app.run(debug = True)
+    app.run(debug=True)
