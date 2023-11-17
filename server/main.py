@@ -54,7 +54,9 @@ def handle_letter ():
         user_resume.save(resume_filename)
 
         resume_path = f"./{resume_filename}"
-        
+        loader = PyPDFLoader(resume_path)
+        content = loader.load_and_split()
+        print(content)
 
     return job_details
 if __name__ == "__main__":
