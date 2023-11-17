@@ -42,8 +42,6 @@ const CoverLetterHelper = () => {
       });
       if (response.ok) {
         const result = await response.text();
-        console.log(jobDetails);
-        console.log(resume);
         setResult(result);
       } else {
         alert("Error: Something went wrong");
@@ -55,7 +53,7 @@ const CoverLetterHelper = () => {
   return (
     <div className="input-container">
       <label htmlFor="pdf-upload">
-        <button onClick={handleUploadButtonClick}>
+        <button className="upload-btn" onClick={handleUploadButtonClick}>
           Upload
         </button>
         <input
@@ -70,7 +68,7 @@ const CoverLetterHelper = () => {
           <div>
             <p>File uploaded successfully! Filename: {filename}</p>            
             {jobDetails ? (
-              <button onClick={handleLetter}>Generate Cover Letter</button>
+              <button className="submit-button" onClick={handleLetter}>Generate Cover Letter</button>
             ) : (
               <p>Please provide job details</p>
             )}
@@ -80,6 +78,11 @@ const CoverLetterHelper = () => {
             <p>Upload your resume please </p>
           </div>
         )}
+        {result && (
+            <div className="result">
+              <p>{result}</p>
+            </div>
+          )}
       </label>
     </div>
   );
