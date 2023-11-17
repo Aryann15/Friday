@@ -1,12 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 
 const CoverLetterHelper = () => {
   const [jobDetails, setJobDetails] = useState("");
   const [result, setResult] = useState("");
   const [resume, setResume] = useState("");
+  const fileInputRef = useRef(null);
+
   const handleFileUpload = (event) => {
     setResume(event.target.files[0]);
   };
+
+
+
   useEffect(() => {
     const handleJobDetails = (event) => {
       if (event.data && event.data.type === "job-details-text") {
@@ -19,10 +24,10 @@ const CoverLetterHelper = () => {
       window.removeEventListener("message", handleJobDetails);
     };
   }, []);
-  async function handleLetter () {
+  async function handleLetter() {
     const formData = new FormData();
-    formData.append("resume",resume)
-    formData.append("job details",jobDetails)
+    formData.append("resume", resume);
+    formData.append("job_details", jobDetails);
     try {
       const response = await fetch("http://localhost:5000/coverLetter", {
         method: "POST",
@@ -30,9 +35,9 @@ const CoverLetterHelper = () => {
       });
       if (response.ok) {
         const result = await response.text();
-        console.log(jobDetails)
+        console.log(jobDetails);
         console.log(resume);
-        setResult(result)
+        setResult(result);
       } else {
         alert("Error: Something went wrong");
       }
@@ -42,21 +47,22 @@ const CoverLetterHelper = () => {
   }
   return (
     <div className="input-container">
-      <label htmlFor="csv-upload">
-        <button variant="contained" component="span" onClick={handleFileUpload}>
+      <label htmlFor="pdf-upload">
+        <button onClick={handleUploadButtonClick}>
           Upload
         </button>
         <input
           type="file"
           id="pdf-upload"
           accept=".pdf"
-          required={true}
           style={{ display: "none" }}
+          onChange={handleFileUpload}
+          ref={fileInputRef}
         />
         {resume ? (
           <div>
             <p>File uploaded successfully!</p>
-            <button onClick={handleLetter} >Generate Cover Letter</button>
+            <button onClick={handleLetter}>Generate Cover Letter</button>
           </div>
         ) : (
           <div>
