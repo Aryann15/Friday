@@ -26,17 +26,29 @@ Your role is to formulate an appropriate, informative and courteous response tha
 
 The current conversation is about you "{topic}". Create an insightful reply accordingly
 
-Given the previous exchange: {texts}
+Given the previous exchange: {text}
 
 """
         openai = OpenAI(model_name="gpt-3.5-turbo-1106", openai_api_key=openai_api_key)
-        openai.temperature = 0.8
         prompt_template = PromptTemplate(
             input_variables=["text", "name", "topic"], template=template
         )
         result = openai(prompt_template.format(text=texts, name=name, topic=topic))
-
+        print (prompt_template.format(text=texts, name=name, topic=topic))
         return result
+    else:
+        return "error"
+
+@app.route("/coverLetter", methods=["POST"])
+def handle_letter ():
+    load_dotenv()
+    openai_api_key = os.environ.get("OPENAI_API_KEY")
+    user_resume = request.files["resume"]
+    job_details = request.form["job_details"]
+
+    if user_resume and job_details:
+        print(f"CSV File Name: {user_resume.filename}")
+        print(f"User Question: {job_details}")
 
 
 if __name__ == "__main__":
