@@ -59,3 +59,44 @@ body {
   border-radius: 80px;
   background-color: #23317e; /* You can customize the underline color */
 }
+
+.content-container {
+  padding: 20px;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+
+.input-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.input-field {
+  padding: 10px;
+  margin: 5px;
+  border: 1px solid #23317e;
+  border-radius: 5px;
+}
+
+.submit-button {
+  background-color: #23317e;
+  color: #ffffff;
+  font-size: 1em;
+  padding: 10px 20px;
+  margin-top: 10px;
+  cursor: pointer;
+  border: none;
+  border-radius: 30px;
+}
+
+.upload-btn{
+  font-size: 1rem;
+  border-radius: 30px;
+}
+
+.result{
+  color: #000000;
+  margin-top: 10px;
+}
