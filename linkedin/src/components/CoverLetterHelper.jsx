@@ -4,10 +4,12 @@ const CoverLetterHelper = () => {
   const [jobDetails, setJobDetails] = useState("");
   const [result, setResult] = useState("");
   const [resume, setResume] = useState("");
+  const [filename, setFilename] = useState("");
   const fileInputRef = useRef(null);
 
   const handleFileUpload = (event) => {
     setResume(event.target.files[0]);
+    setFilename(selectedFile ? selectedFile.name : "");
   };
 
   const handleUploadButtonClick = () => {
