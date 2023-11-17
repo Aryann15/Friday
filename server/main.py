@@ -47,9 +47,10 @@ def handle_letter ():
     job_details = request.form["job_details"]
 
     if user_resume and job_details:
-        print(f"CSV File Name: {user_resume.filename}")
+        print(f"Resume File Name: {user_resume.filename}")
         print(f"User Question: {job_details}")
 
 
+    return job_details
 if __name__ == "__main__":
     app.run(debug=True)
