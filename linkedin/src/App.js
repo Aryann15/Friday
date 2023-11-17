@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import './App.css';
-
+import ChatHelp from './components/ChatHelp';
 function App() {
   const [content, setContent] = useState('');
   const handleSubHeadingClick = (text) => {
     if (text === 'Chat Help') {
-      setContent('This is the chat content.');
+      setContent(<ChatHelp />);
     } else if (text === 'Cover Letter') {
       setContent('These are the job details.');
     }
