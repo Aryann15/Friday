@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import "./ChatHelp.css";
+// import "./ChatHelp.css";
 
 const ChatHelp = () => {
   const [chat, setChat] = useState("");
@@ -27,7 +27,7 @@ const ChatHelp = () => {
 
   async function handleMessages() {
     const formData = new FormData();
-    formData.append("text", setChat);
+    formData.append("text", chat);
     formData.append("name", name);
     formData.append("topic", topic);
     try {
@@ -47,11 +47,9 @@ const ChatHelp = () => {
       console.error("Error:", error);
     }
   }
-
   return (
     <div className="App">
       <header className="App-header">
-        <h1 className="extension-title">Friday</h1>
         <div className="input-container">
           <input
             type="text"
@@ -66,11 +64,32 @@ const ChatHelp = () => {
             className="input-field"
             onChange={handleTopicChange}
           />
-          <button onClick={handleMessages} className="submit-button">
-            Submit
-          </button>
-          {/* <h4> job details: {jobDetails} </h4>
-          <h4> chat : {chat}</h4> */}
+          {name ? (
+            topic ? (
+              chat ? (
+                <button onClick={handleMessages} className="submit-button">
+                  Submit
+                </button>
+              ) : (
+                <div>
+                  <p>Please select the conversation</p>
+                </div>
+              )
+            ) : (
+              <div>
+                <p>Please enter your topic</p>
+              </div>
+            )
+          ) : (
+            <div>
+              <p>Please enter your name</p>
+            </div>
+          )}
+          {result && (
+            <div className="result">
+              <p>{result}</p>
+            </div>
+          )}
         </div>
       </header>
     </div>
