@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
+// import "./ChatHelp.css";
 
 const CoverLetterHelper = () => {
   const [jobDetails, setJobDetails] = useState("");
@@ -8,7 +9,8 @@ const CoverLetterHelper = () => {
   const fileInputRef = useRef(null);
 
   const handleFileUpload = (event) => {
-    setResume(event.target.files[0]);
+    const selectedFile = event.target.files[0];
+    setResume(selectedFile);
     setFilename(selectedFile ? selectedFile.name : "");
   };
 
@@ -66,8 +68,12 @@ const CoverLetterHelper = () => {
         />
         {resume ? (
           <div>
-            <p>File uploaded successfully!</p>
-            <button onClick={handleLetter}>Generate Cover Letter</button>
+            <p>File uploaded successfully! Filename: {filename}</p>            
+            {jobDetails ? (
+              <button onClick={handleLetter}>Generate Cover Letter</button>
+            ) : (
+              <p>Please provide job details</p>
+            )}
           </div>
         ) : (
           <div>
