@@ -3,7 +3,13 @@ import './App.css';
 
 function App() {
   const [content, setContent] = useState('');
-
+  const handleSubHeadingClick = (text) => {
+    if (text === 'Chat Help') {
+      setContent('This is the chat content.');
+    } else if (text === 'Cover Letter') {
+      setContent('These are the job details.');
+    }
+  };
 
   return (
     <div className="App">
