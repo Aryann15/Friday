@@ -4,7 +4,8 @@ from flask import Flask, request, jsonify
 import os
 from langchain.llms import OpenAI
 from langchain import PromptTemplate
-
+from langchain.document_loaders import PyPDFLoader
+from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
 CORS(app)
@@ -49,7 +50,11 @@ def handle_letter ():
     if user_resume and job_details:
         print(f"Resume File Name: {user_resume.filename}")
         print(f"User Question: {job_details}")
+        resume_filename = secure_filename(user_resume.filename)
+        user_resume.save(resume_filename)
 
+        resume_path = f"./{resume_filename}"
+        
 
     return job_details
 if __name__ == "__main__":
