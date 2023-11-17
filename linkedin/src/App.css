@@ -1,58 +1,61 @@
-/* Add this to your App.css or create a new CSS file */
+/* App.css */
+@import url('https://fonts.googleapis.com/css2?family=Prompt:wght@700&display=swap');
 
-.App {
-    text-align: center;
-    background-color: #282c34;
-    color: white;
-    min-width: 70vh;
-    min-height: 70vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  .App-header {
-    padding: 20px;
-  }
-  
-  .extension-title {
-    font-size: 2em;
-    margin-bottom: 20px;
-  }
-  
-  .cta-button {
-    background-color: #61dafb;
-    color: #282c34;
-    font-size: 1em;
-    padding: 10px 20px;
-    margin-bottom: 20px;
-    cursor: pointer;
-    border: none;
-    border-radius: 5px;
-  }
-  
-  .input-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  .input-field {
-    padding: 10px;
-    margin: 5px;
-    border: 1px solid #61dafb;
-    border-radius: 5px;
-  }
-  
-  .submit-button {
-    background-color: #61dafb;
-    color: #282c34;
-    font-size: 1em;
-    padding: 10px 20px;
-    margin-top: 10px;
-    cursor: pointer;
-    border: none;
-    border-radius: 5px;
-  }
-  
+body {
+  margin: 0;
+  padding: 0px;
+  font-family: 'Arial', sans-serif;
+  background-color: #f2f2f2;
+}
+
+.app-container {
+  max-width: 800px;
+  max-height:800px;
+  margin: 0 auto;
+  background-color: #fff;
+  overflow: hidden;
+}
+
+.app-header {
+  font-family: 'Prompt', sans-serif;
+  text-align: center;
+  padding: 10px;
+  font-size: larger;
+  background-color: #7980dd;
+  color: #fff;
+}
+
+.sub-headers {
+  display: flex;
+  padding: 20px;
+  justify-content: center;
+  margin: 20px 0;
+}
+
+.sub-header {
+  margin: 0 20px;
+  cursor: pointer;
+  color: #ffffff;
+  font-size: 18px;
+  transition: color 0.3s ease;
+}
+
+.sub-header:hover {
+  color: #23317e;
+}
+
+.selected {
+  position: relative;
+  color: #23317e;
+}
+
+.selected::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  border-radius: 80px;
+  background-color: #23317e; /* You can customize the underline color */
+}
