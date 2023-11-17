@@ -7,6 +7,20 @@ const CoverLetterHelper = () => {
   const handleFileUpload = (event) => {
     setResume (event.target.files[0])
   }
+  useEffect(() => {
+    const handleJobDetails = (event) => {
+      if (event.data && event.data.type === "job-details-text") {
+        const job_details = event.data.text;
+        setJobDetails(job_details)
+      }
+    };
+    window.addEventListener("message", handleJobDetails);
+    return () => {
+      window.removeEventListener("message", handleJobDetails);
+    };
+  }, []);
+
+
   return (
     <div className="input-container">
       <label htmlFor="csv-upload">
