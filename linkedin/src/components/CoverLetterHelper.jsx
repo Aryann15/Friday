@@ -10,7 +10,10 @@ const CoverLetterHelper = () => {
     setResume(event.target.files[0]);
   };
 
-
+  const handleUploadButtonClick = () => {
+    console.log("Upload button pressed");
+    fileInputRef.current.click(); 
+  };
 
   useEffect(() => {
     const handleJobDetails = (event) => {
