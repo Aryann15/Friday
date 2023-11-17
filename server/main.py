@@ -58,6 +58,14 @@ def handle_letter ():
         content = loader.load_and_split()
         print(content)
 
+        template = """"
+        """
+        openai = OpenAI(model_name="gpt-3.5-turbo-1106", openai_api_key=openai_api_key)
+        prompt_template = PromptTemplate(
+            input_variables=["job_details","resume_content"], template=template
+        )
+
+
     return job_details
 if __name__ == "__main__":
     app.run(debug=True)
