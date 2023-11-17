@@ -35,13 +35,14 @@ Given the previous exchange: {text}
             input_variables=["text", "name", "topic"], template=template
         )
         result = openai(prompt_template.format(text=texts, name=name, topic=topic))
-        print (prompt_template.format(text=texts, name=name, topic=topic))
+        print(prompt_template.format(text=texts, name=name, topic=topic))
         return result
     else:
         return "error"
 
+
 @app.route("/coverLetter", methods=["POST"])
-def handle_letter ():
+def handle_letter():
     load_dotenv()
     openai_api_key = os.environ.get("OPENAI_API_KEY")
     user_resume = request.files["resume"]
@@ -56,16 +57,45 @@ def handle_letter ():
         resume_path = f"./{resume_filename}"
         loader = PyPDFLoader(resume_path)
         content = loader.load_and_split()
-        print(content)
+        # print(content)
 
-        template = """"
-        """
+        template = """You are an intelligent assistant created to help job seekers craft compelling applications for jobs they want.
+
+Given information about a job posting and an applicant's resume, your role is to:
+
+Extract relevant details from the resume like the applicant's name, skills, experiences, achievements, and education.
+
+Identify the most important skills, experiences, and achievements that match the requirements of the job posting.
+
+Craft a cover letter in the applicant's own voice, highlighting key points from their resume that demonstrate their suitability for the specific role. The cover letter should:
+
+Be addressed to the hiring manager by name if possible
+Refer to specific details about the role and company
+Use the applicant's own words and experiences from their resume
+Express genuine interest in the role and company
+Close professionally with contact details and a request to discuss further
+
+Apologize if you cannot generate a cover letter due to lack of information, and suggest the applicant draft their own.
+
+The job details are: {job_details}
+The applicant's resume content is: {resume_content}
+
+Generate the cover letter in the format of professionoal cover letter
+
+"""
         openai = OpenAI(model_name="gpt-3.5-turbo-1106", openai_api_key=openai_api_key)
         prompt_template = PromptTemplate(
-            input_variables=["job_details","resume_content"], template=template
+            input_variables=["job_details", "resume_content"], template=template
         )
+        result = openai(
+            prompt_template.format(job_details=job_details, resume_content=content)
+        )
+        
+        # print(prompt_template.format(job_details=job_details, resume_content=content))
+        print (result)
+
+    return result
 
 
-    return job_details
 if __name__ == "__main__":
     app.run(debug=True)
