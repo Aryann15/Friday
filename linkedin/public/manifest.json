@@ -3,17 +3,18 @@
   "name": "Friday",
   "version": "1.0",
   "description": "better reply for linkedin messages, better comments",
-  "browser_action": {
+  "action": {
     "default_popup": "index.html"
   },
-  "permissions": ["activeTab", "storage", "contextMenus"],
+  "permissions": [
+    "activeTab",
+    "storage",
+    "contextMenus",
+    "downloads",
+    "unlimitedStorage"
+  ],
+
   "background": {
     "service_worker": "background.js"
-  },
-  "commands": {
-    "inject-script": {
-      "suggested_key": "Ctrl+M",
-      "description": "Inject a script on the page"
-    }
   }
 }
